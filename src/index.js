@@ -38,8 +38,16 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+  return expr
+      .match(/.{1,10}/g) //поиск по expr 1 и 10
+      .map(code => code
+          .replaceAll(/11/g, '-') //заменяет 11 на -
+          .replaceAll(/10/g, '.') //заменяет 10 на .
+          .replaceAll(/0/g, '')) //удаляет ненужные 0 для правильного декодирования
+      .map(code => MORSE_TABLE[code] || ' ') //переводит строку из . и - в буквенную, если в таблице не нашлось ничего, добавлеят пробел
+      .join(''); //склеивает строку
 }
+  
 
 module.exports = {
     decode
